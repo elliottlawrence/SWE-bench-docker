@@ -20,4 +20,4 @@ image_name="${base_image}-${tag_base}-testbed"
 
 echo "Building Docker image: $image_name:$version for $testbed_directory/Dockerfile"
 
-docker build -t "$image_name:$version" -f "$testbed_directory/Dockerfile" .
+docker build --platform=linux/amd64 -t "$image_name:$version" -f "$testbed_directory/Dockerfile" .

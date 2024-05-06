@@ -13,7 +13,7 @@ repo=${3:-""}
 base_image="${docker_namespace}/swe-bench"
 
 echo "Building base Docker image..."
-docker build -t "${base_image}-base:latest" -f "$root_directory/Dockerfile" .
+docker build --platform=linux/amd64 -t "${base_image}-base:latest" -f "$root_directory/Dockerfile" .
 
 build_docker_images() {
     if [ -z "$repo" ]; then
@@ -25,7 +25,7 @@ build_docker_images() {
                 tag="${tag%/}"
                 image_name="$base_image-$(echo $tag | sed 's/__*/_/g')"
                 echo "Building Docker image: $image_name"
-                docker build -t "$image_name:latest" -f "$dockerfile_path" .
+                docker build --platform=linux/amd64 -t "$image_name:latest" -f "$dockerfile_path" .
             fi
         done
     else
@@ -35,7 +35,7 @@ build_docker_images() {
             tag="${repo%/}"
             image_name="$base_image-$(echo $tag | sed 's/__*/_/g')"
             echo "Building Docker image: $image_name"
-            docker build -t "$image_name:latest" -f "$dir/Dockerfile" .
+            docker build --platform=linux/amd64 -t "$image_name:latest" -f "$dir/Dockerfile" .
         fi
     fi
 
@@ -66,7 +66,7 @@ build_versioned_images() {
             tag_base="$(echo $tag_base | sed 's/__*/_/g')"
             image_name="$base_image-${tag_base}-testbed"
             echo "Building Docker image: $image_name:$version for $dir/Dockerfile"
-            docker build -t "$image_name:$version" -f "$dockerfile_path" .
+            docker build --platform=linux/amd64 -t "$image_name:$version" -f "$dockerfile_path" .
         fi
     fi
 }

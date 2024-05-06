@@ -19,6 +19,8 @@ def run_docker_evaluation(task_instance: dict, log_dir: str, timeout: int = 900,
 
     docker_command = [
         'docker', 'run',
+        '--rm',
+        '--platform=linux/amd64',
         '-v', f"{log_dir}:{container_log_dir}",
         '-e', f"INSTANCE={instance_b64}",
         '-e', f"LOG_DIR={container_log_dir}",
