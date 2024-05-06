@@ -25,7 +25,7 @@ build_docker_images() {
                 tag="${tag%/}"
                 image_name="$base_image-$(echo $tag | sed 's/__*/_/g')"
                 echo "Building Docker image: $image_name"
-                docker build -t "$image_name:latest" -f "$dockerfile_path" .
+                docker build --platform=linux/amd64 -t "$image_name:latest" -f "$dockerfile_path" .
             fi
         done
     else
@@ -35,7 +35,7 @@ build_docker_images() {
             tag="${repo%/}"
             image_name="$base_image-$(echo $tag | sed 's/__*/_/g')"
             echo "Building Docker image: $image_name"
-            docker build -t "$image_name:latest" -f "$dir/Dockerfile" .
+            docker build --platform=linux/amd64 -t "$image_name:latest" -f "$dir/Dockerfile" .
         fi
     fi
 
